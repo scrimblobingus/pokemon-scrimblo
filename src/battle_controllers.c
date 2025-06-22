@@ -2130,7 +2130,7 @@ static void SetBattlerMonData(u32 battler, struct Pokemon *party, u32 monId)
         HandleLowHpMusicChange(&party[gBattlerPartyIndexes[battler]], battler);
 }
 
-// In normal singles, if follower Pok�mon exists, and the Pok�mon following is being sent out, have it slide in instead of being thrown
+// In normal singles, if follower Pokémon exists, and the Pokémon following is being sent out, have it slide in instead of being thrown
 static bool8 ShouldDoSlideInAnim(u32 battler)
 {
     struct ObjectEvent *followerObj = GetFollowerObject();
@@ -3261,7 +3261,7 @@ bool32 SwitchIn_TryShinyAnimUtil(u32 battler)
 
 u32 Rogue_GetBattleSpeedScale(bool32 forHealthbar)
 {
-    //Retrieve the current Battle Scene Speed
+    // Retrieve the current Battle Scene Speed
     u8 battleSceneOption =  gSaveBlock2Ptr->optionsBattleSceneOff;
 
     // Hold L to slow down
@@ -3279,27 +3279,27 @@ u32 Rogue_GetBattleSpeedScale(bool32 forHealthbar)
             return 1;
 
         // When battle anims are turned off, it's a bit too hard to read text, so force running at normal speed
-        if(!forHealthbar && battleSceneOption == 4 && InBattleRunningActions())
+        if(!forHealthbar && battleSceneOption == OPTIONS_BATTLE_SCENE_DISABLED && InBattleRunningActions())
             return 1;
     }
 
     // We don't need to speed up health bar anymore as that passively happens now
     switch (battleSceneOption)
     {
-    case 0:
+    case OPTIONS_BATTLE_SCENE_1X:       // These are all in /include/constants/global.h, for my own future reference.
         return forHealthbar ? 1 : 1;
 
-    case 1:
+    case OPTIONS_BATTLE_SCENE_2X:
         return forHealthbar ? 1 : 2;
 
-    case 2:
+    case OPTIONS_BATTLE_SCENE_3X:
         return forHealthbar ? 1 : 3;
 
-    case 3:
+    case OPTIONS_BATTLE_SCENE_4X:
         return forHealthbar ? 1 : 4;
 
     // Print text at a readable speed still
-    case 4:
+    case OPTIONS_BATTLE_SCENE_DISABLED:
         if(gBattleStruct->hasBattleInputStarted)
             return forHealthbar ? 10 : 1;
         else
