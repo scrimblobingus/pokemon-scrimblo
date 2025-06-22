@@ -3261,7 +3261,8 @@ bool32 SwitchIn_TryShinyAnimUtil(u32 battler)
 
 u32 Rogue_GetBattleSpeedScale(bool32 forHealthbar)
 {
-    u8 battleSceneOption = VarGet(B_BATTLE_SPEED); // Originally GetBattleSceneOption() with a saveblock stored value;
+    //Retrieve the current Battle Scene Speed
+    u8 battleSceneOption =  gSaveBlock2Ptr->optionsBattleSceneOff;
 
     // Hold L to slow down
     if(JOY_HELD(L_BUTTON))
@@ -3278,27 +3279,27 @@ u32 Rogue_GetBattleSpeedScale(bool32 forHealthbar)
             return 1;
 
         // When battle anims are turned off, it's a bit too hard to read text, so force running at normal speed
-        if(!forHealthbar && battleSceneOption == OPTIONS_BATTLE_SCENE_DISABLED && InBattleRunningActions())
+        if(!forHealthbar && battleSceneOption == 4 && InBattleRunningActions())
             return 1;
     }
 
     // We don't need to speed up health bar anymore as that passively happens now
     switch (battleSceneOption)
     {
-    case OPTIONS_BATTLE_SCENE_1X:
+    case 0:
         return forHealthbar ? 1 : 1;
 
-    case OPTIONS_BATTLE_SCENE_2X:
+    case 1:
         return forHealthbar ? 1 : 2;
 
-    case OPTIONS_BATTLE_SCENE_3X:
+    case 2:
         return forHealthbar ? 1 : 3;
 
-    case OPTIONS_BATTLE_SCENE_4X:
+    case 3:
         return forHealthbar ? 1 : 4;
 
     // Print text at a readable speed still
-    case OPTIONS_BATTLE_SCENE_DISABLED:
+    case 4:
         if(gBattleStruct->hasBattleInputStarted)
             return forHealthbar ? 10 : 1;
         else
