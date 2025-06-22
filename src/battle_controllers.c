@@ -2130,7 +2130,7 @@ static void SetBattlerMonData(u32 battler, struct Pokemon *party, u32 monId)
         HandleLowHpMusicChange(&party[gBattlerPartyIndexes[battler]], battler);
 }
 
-// In normal singles, if follower Pokémon exists, and the Pokémon following is being sent out, have it slide in instead of being thrown
+// In normal singles, if follower Pok�mon exists, and the Pok�mon following is being sent out, have it slide in instead of being thrown
 static bool8 ShouldDoSlideInAnim(u32 battler)
 {
     struct ObjectEvent *followerObj = GetFollowerObject();
