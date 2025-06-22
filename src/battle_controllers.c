@@ -3261,7 +3261,8 @@ bool32 SwitchIn_TryShinyAnimUtil(u32 battler)
 
 u32 Rogue_GetBattleSpeedScale(bool32 forHealthbar)
 {
-    u8 battleSceneOption = VarGet(B_BATTLE_SPEED); // Originally GetBattleSceneOption() with a saveblock stored value;
+    // Retrieve the current Battle Scene Speed
+    u8 battleSceneOption =  gSaveBlock2Ptr->optionsBattleSceneOff;
 
     // Hold L to slow down
     if(JOY_HELD(L_BUTTON))
@@ -3285,7 +3286,7 @@ u32 Rogue_GetBattleSpeedScale(bool32 forHealthbar)
     // We don't need to speed up health bar anymore as that passively happens now
     switch (battleSceneOption)
     {
-    case OPTIONS_BATTLE_SCENE_1X:
+    case OPTIONS_BATTLE_SCENE_1X:       // These are all in /include/constants/global.h, for my own future reference.
         return forHealthbar ? 1 : 1;
 
     case OPTIONS_BATTLE_SCENE_2X:
