@@ -2605,7 +2605,7 @@ static void PrintBattlerOnAbilityPopUp(u8 battlerId, u8 spriteId1, u8 spriteId2)
     lastChar = *(textPtr - 1);
 
     // Make the string say "[NAME]'s" instead of "[NAME]"
-    textPtr[0] = CHAR_SGL_QUOTE_RIGHT; // apostraphe
+    textPtr[0] = CHAR_SGL_QUOTE_RIGHT; // apostrophe
     textPtr++;
     if (lastChar != CHAR_S && lastChar != CHAR_s)
     {
