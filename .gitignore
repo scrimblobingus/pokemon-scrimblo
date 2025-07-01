@@ -47,4 +47,4 @@ tools/trainerproc/trainerproc
 *.smolTM
 __pycache__
 /.vs
-*.xslx
+*.xlsx
