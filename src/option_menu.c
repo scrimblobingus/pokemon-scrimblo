@@ -15,7 +15,6 @@
 #include "window.h"
 #include "gba/m4a_internal.h"
 #include "constants/rgb.h"
-#include "string_util.h"
 
 #define tMenuSelection data[0]
 #define tTextSpeed data[1]
@@ -444,63 +443,25 @@ static void TextSpeed_DrawChoices(u8 selection)
 
 static u8 BattleScene_ProcessInput(u8 selection)
 {
-
-    if (JOY_NEW(DPAD_RIGHT))
+    if (JOY_NEW(DPAD_LEFT | DPAD_RIGHT))
     {
-        if (selection <= 4)
-            selection++;
-        else
-            selection = 0;
-
+        selection ^= 1;
         sArrowPressed = TRUE;
     }
-    if (JOY_NEW(DPAD_LEFT))
-    {
-        if (selection != 0)
-            selection--;
-        else
-            selection = 4;
 
-        sArrowPressed = TRUE;
-    }
     return selection;
 }
 
 static void BattleScene_DrawChoices(u8 selection)
 {
-    u8 styles[5];
-
-    s32 w0, w1, w2, w3, w4, x, y; // Idea lifted from Multipage Options Menu tutorial.
+    u8 styles[2];
 
     styles[0] = 0;
     styles[1] = 0;
-    styles[2] = 0;
-    styles[3] = 0;
-    styles[4] = 0;
     styles[selection] = 1;
 
-    // Draw left option (BattleScene0)
-    DrawOptionMenuChoice(gText_BattleScene0, 104, YPOS_BATTLESCENE, styles[0]);
-
-    // Draw the central option (BattleScene2)
-    w0 = GetStringWidth(FONT_NORMAL, gText_BattleScene0, 0);
-    w1 = GetStringWidth(FONT_NORMAL, gText_BattleScene1, 0);
-    w2 = GetStringWidth(FONT_NORMAL, gText_BattleScene2, 0);
-    w3 = GetStringWidth(FONT_NORMAL, gText_BattleScene3, 0);
-    w4 = GetStringWidth(FONT_NORMAL, gText_BattleSceneOff, 0);
-    x = (94 + w0 - w2 - w4) / 2;
-    DrawOptionMenuChoice(gText_BattleScene2, (x + 104), YPOS_BATTLESCENE, styles[2]);
-
-    // Draw center-left option (BattleScene1)
-    y = (94 - x + w0 - w1 - w4) / 2;
-    DrawOptionMenuChoice(gText_BattleScene1, (y + 104), YPOS_BATTLESCENE, styles[1]);
-
-    // Draw center-right option (BattleScene3)
-    y = (94 - x + w2 - w3 - w4) / 2 + x;
-    DrawOptionMenuChoice(gText_BattleScene3, (y + 104), YPOS_BATTLESCENE, styles[3]);
-
-    // Draw right option (BattleSceneOff)
-    DrawOptionMenuChoice(gText_BattleSceneOff, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198), YPOS_BATTLESCENE, styles[4]);
+    DrawOptionMenuChoice(gText_BattleSceneOn, 104, YPOS_BATTLESCENE, styles[0]);
+    DrawOptionMenuChoice(gText_BattleSceneOff, GetStringRightAlignXOffset(FONT_NORMAL, gText_BattleSceneOff, 198), YPOS_BATTLESCENE, styles[1]);
 }
 
 static u8 BattleStyle_ProcessInput(u8 selection)
