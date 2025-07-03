@@ -48,3 +48,5 @@ tools/trainerproc/trainerproc
 __pycache__
 /.vs
 *.xlsx
+*.bak
+*.xcf
