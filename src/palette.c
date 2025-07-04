@@ -34,11 +34,6 @@ static EWRAM_DATA u32 sPlttBufferTransferPending = 0;
 
 static EWRAM_DATA u32 sPlttPreviousUpdateResult = 0; // Fast Battle Speed
 
-// static const struct PaletteStructTemplate sDummyPaletteStructTemplate = {
-//     .id = 0xFFFF,
-//     .state = 1
-// };
-
 static const u8 sRoundedDownGrayscaleMap[] = {
      0,  0,  0,  0,  0,
      5,  5,  5,  5,  5,
@@ -91,8 +86,6 @@ u32 UpdatePaletteFade(void)
 
     sPlttPreviousUpdateResult = PALETTE_FADE_STATUS_LOADING;
 
-    sPlttPreviousUpdateResult = PALETTE_FADE_STATUS_LOADING;
-
     if (sPlttBufferTransferPending)
         return PALETTE_FADE_STATUS_LOADING;
 
@@ -105,15 +98,9 @@ u32 UpdatePaletteFade(void)
     else
         result = UpdateHardwarePaletteFade();
 
-    sPlttBufferTransferPending = gPaletteFade.multipurpose1 | dummy;
-    sPlttPreviousUpdateResult = result;
+    sPlttBufferTransferPending = gPaletteFade.multipurpose1;
 
     return result;
-}
-
-u32 PrevPaletteFadeResult(void)
-{
-    return sPlttPreviousUpdateResult;
 }
 
 void ResetPaletteFade(void)

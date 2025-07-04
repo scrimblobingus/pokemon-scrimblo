@@ -2066,14 +2066,11 @@ void UpdateHealthboxAttribute(u8 healthboxSpriteId, struct Pokemon *mon, u8 elem
 #define B_EXPBAR_PIXELS 64
 #define B_HEALTHBAR_PIXELS 48
 
-
-s32 MoveBattleBar(u8 battlerId, u8 healthboxSpriteId, u8 whichBar, u8 unused)
+s32 MoveBattleBar(u8 battler, u8 healthboxSpriteId, u8 whichBar, u8 unused)
 {
-    u32 s;
-    u32 speedScale = Rogue_GetBattleSpeedScale(TRUE);
-    s32 currentBarValue = 0;
+    s32 currentBarValue;
 
-    for(s = 0; s < speedScale; ++s)
+    if (whichBar == HEALTH_BAR) // health bar
     {
         if (whichBar == HEALTH_BAR) // health bar
         {
@@ -2328,7 +2325,7 @@ static u8 CalcBarFilledPixels(s32 maxValue, s32 oldValue, s32 receivedValue, s32
     return filledPixels;
 }
 
-static u8 UNUSED GetScaledExpFraction(s32 oldValue, s32 receivedValue, s32 maxValue, u8 scale)
+static u8 GetScaledExpFraction(s32 oldValue, s32 receivedValue, s32 maxValue, u8 scale)
 {
     s32 newVal, result;
     s8 oldToMax, newToMax;
